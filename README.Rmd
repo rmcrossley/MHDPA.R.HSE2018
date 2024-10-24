@@ -13,41 +13,42 @@ knitr::opts_chunk$set(
 
 # MHDPA_R_HSE2018
 
-The intent of MHDPA_R_HSE2018 is to...
+The intent of the project entitled 'MHDPA_R_HSE2018' is to analyse the Health Survey for England (HSE) 2018 data to look for moderators and mediators in the relationship between mental health and obesity in the UK. 
 
-## Description
+<!-- ## Description -->
 
-Longer description describing the problem and the analysis performed.
+<!-- Longer description describing the problem and the analysis performed. -->
 
 ### Assumptions
 
-Add important assumptions used in the analysis here.
+There are currently no assumptions in this analysis. 
 
 ### QA status
 
-Add details of QA status here.
+To be QA'd in due course.
 
-## Usage
+<!-- ## Usage -->
 
-### Installation
+<!-- ### Installation -->
 
-How to install the project. This should include instructions on any required set up of environment variables and data in enough detail that another analyst in DHSC could use them to run your analysis. Alternatively, guidance on where to find these set up instructions on the internal file system can be provided (do not put SharePoint links on GitHub).
+<!-- How to install the project. This should include instructions on any required set up of environment variables and data in enough detail that another analyst in DHSC could use them to run your analysis. Alternatively, guidance on where to find these set up instructions on the internal file system can be provided (do not put SharePoint links on GitHub). -->
 
 ### Run code
 
 Input parameters can be found in the `./input/config.yml` file.
 
-Before running the analysis update...
+<!-- Before running the analysis update... -->
 
 To run the analysis source the `main.R` script in the project base folder.
 
 ## Links
 
-Links to related projects or information in public domain.
+The main overview of the HSE 2018 data can be found at the following link:
+https://digital.nhs.uk/data-and-information/publications/statistical/health-survey-for-england/2018/summary
 
-## Citing the project
+<!-- ## Citing the project -->
 
-Information on how to cite work if appropriate.
+<!-- Information on how to cite work if appropriate. -->
 
 ## Code of Conduct
 

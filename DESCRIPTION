@@ -1,9 +1,9 @@
 Package: MHDPA.R.HSE2018
-Title: What the Package Does (One Line, Title Case)
+Title: Mental Health and Obesity Statistical Analysis (HSE 2018 data)
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "email@dhsc.gov.uk", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+    person("Rebecca", "Crossley", , "becky.crossley@dhsc.gov.uk", role = c("aut", "cre"))
+Description: This project will be used to analyse the Health Survey for England (HSE) 2018 data to look for relationships between mental health and obesity. Initial trend data (descriptive statistics) have been produced using the 2022 summary HSE data in Excel.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
