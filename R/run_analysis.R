@@ -22,14 +22,15 @@ run_analysis <- function() {
   logger$info("Running analysis...")
 
   # Load in data
-  df <- upload$hse_2019_in_lab
+  df <- upload$hse18lab
 
   # Loop through factors for plots --------------------------------------------------------------------------------------
   # BMI first
   # List of factors to iterate through
-  factors <- c("ag16g10", "Sex", "ThCoAny", "origin2",
-               "LifeSatG", "wemwbs", "IllAff7", "ILL12m", "MENHTAKg2",
-               "AntiDepTakg2", "SCOFF2", "qimd19", "AntiDepM2", "topqual3", "RELIGSC", "HHINC3", "eqv5", "totalwug_19")
+  factors <- c("ag16g10", "Sex", "origin2",
+               "LifeSatG", "IllAff7", "ILL12m", "MENHTAKg2",
+               "AntiDepTakg2", "AntiDepM2", "topqual3", "RELIGSC", "HHINC3",
+               "eqv5", "GHQ", "Anxiet17g3", "MVPATert")
 
   # Initialize a data frame to store results
   results <- data.frame(Factor = character(), Chi_Square_p_value = numeric(),
@@ -67,9 +68,9 @@ run_analysis <- function() {
   # Optionally, save results to a CSV or document
   write.csv(results, "BMI_chi_square_results.csv", row.names = FALSE)
 
-  # BMI first
+  # Compare to GHQ score bands
   # List of factors to iterate through
-  factors <- c("ag16g10", "Sex", "qimd19", "origin2", "topqual3", "RELIGSC", "HHINC3", "eqv5", "totalwug_19")
+  factors <- c("ag16g10", "Sex", "origin2", "topqual3", "RELIGSC", "HHINC3", "eqv5", "MVPATert", "Anxiet17g3")
 
   # Initialize a data frame to store results
   results <- data.frame(Factor = character(), Chi_Square_p_value = numeric(),
@@ -77,13 +78,13 @@ run_analysis <- function() {
 
   # Loop through each factor and perform the analysis
   for (factor in factors) {
-    print(paste("Analysing", factor, "vs Life Satisfaction"))
+    print(paste("Analysing", factor, "vs GHQ score"))
 
     # Clean out NAs for both Sex and the current factor
-    df_clean <- df[complete.cases(df[[factor]], df$LifeSatG), ]
+    df_clean <- df[complete.cases(df[[factor]], df$GHQ), ]
 
     # Create a contingency table
-    tbl <- table(df_clean[[factor]], df_clean$LifeSatG)
+    tbl <- table(df_clean[[factor]], df_clean$GHQ)
 
     # Perform chi-square test
     chi_square_result <- chisq.test(tbl)
@@ -98,13 +99,13 @@ run_analysis <- function() {
 
     # Visualize with a mosaic plot
     mosaicplot(tbl, main = paste("Mosaic Plot of", factor, "and Life Satisfaction"),
-               xlab = factor, ylab = "Life Satisfaction", color = TRUE)
+               xlab = factor, ylab = "GHQ", color = TRUE)
   }
 
   # Print or save the results
   print(results)
 
   # Optionally, save results to a CSV or document
-  write.csv(results, "LifeSatG_chi_square_results.csv", row.names = FALSE)
+  write.csv(results, "GHQ_chi_square_results.csv", row.names = FALSE)
 
 }
