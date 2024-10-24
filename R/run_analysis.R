@@ -98,7 +98,7 @@ run_analysis <- function() {
                                          Cramers_V = cramers_v))
 
     # Visualize with a mosaic plot
-    mosaicplot(tbl, main = paste("Mosaic Plot of", factor, "and Life Satisfaction"),
+    mosaicplot(tbl, main = paste("Mosaic Plot of", factor, "and GHQ"),
                xlab = factor, ylab = "GHQ", color = TRUE)
   }
 
