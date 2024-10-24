@@ -1,0 +1,15 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^input$
+^output$
+^main\.R$
+^README\.Rmd$
+^template_build\.log$
+^CODE_OF_CONDUCT\.md$
+^MHDPA_R_HSE2018\.Rproj$
+^template_howto\.qmd$
+^template_howto*
+^LICENSE\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

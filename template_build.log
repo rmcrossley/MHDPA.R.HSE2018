@@ -1,0 +1,82 @@
+
+── Provisioning DHSC template ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+✔ Setting active project to "C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018".
+
+── Creating file skeleton ──
+
+[1] "skeleton/_.gitignore"
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/.gitignore.gitignore]8;;'.
+[1] "skeleton/_.Rbuildignore"
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/.Rbuildignore.Rbuildignore]8;;'.
+[1] "skeleton/_.Renviron"
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/.Renviron.Renviron]8;;'.
+[1] "skeleton/__pkgdown.yml"
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/_pkgdown.yml_pkgdown.yml]8;;'.
+[1] "skeleton/_README.Rmd"
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/README.RmdREADME.Rmd]8;;'.
+✔ Creating ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/inputinput/]8;;'.
+✔ Adding "^input$" to ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/.Rbuildignore.Rbuildignore]8;;'.
+[1] "skeleton/input/_.gitignore"
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/input/.gitignoreinput/.gitignore]8;;'.
+✔ Creating ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/outputoutput/]8;;'.
+✔ Adding "^output$" to ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/.Rbuildignore.Rbuildignore]8;;'.
+[1] "skeleton/output/_.gitignore"
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/output/.gitignoreoutput/.gitignore]8;;'.
+✔ Creating ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/RR/]8;;'.
+[1] "with_example/_main.R"
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/main.Rmain.R]8;;'.
+[1] "with_example/R/_download.R"
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/R/download.RR/download.R]8;;'.
+[1] "with_example/R/_process.R"
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/R/process.RR/process.R]8;;'.
+[1] "with_example/R/_run_analysis.R"
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/R/run_analysis.RR/run_analysis.R]8;;'.
+[1] "with_example/R/_visualise.R"
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/R/visualise.RR/visualise.R]8;;'.
+[1] "with_example/input/_config.yml"
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/input/config.ymlinput/config.yml]8;;'.
+✔ Adding "^main\\.R$", "^README\\.Rmd$", and "^template_build\\.log$" to ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/.Rbuildignore.Rbuildignore]8;;'.
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/CODE_OF_CONDUCT.mdCODE_OF_CONDUCT.md]8;;'.
+✔ Adding "^CODE_OF_CONDUCT\\.md$" to ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/.Rbuildignore.Rbuildignore]8;;'.
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/R/MHDPA.R.HSE2018-package.RR/MHDPA.R.HSE2018-package.R]8;;'.
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/MHDPA_R_HSE2018.RprojMHDPA_R_HSE2018.Rproj]8;;'.
+✔ Adding "^MHDPA_R_HSE2018\\.Rproj$" to ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/.Rbuildignore.Rbuildignore]8;;'.
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/template_howto.qmdtemplate_howto.qmd]8;;'.
+✔ Adding "^template_howto\\.qmd$" to ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/.Rbuildignore.Rbuildignore]8;;'.
+✔ Adding "^template_howto*" to ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/.Rbuildignore.Rbuildignore]8;;'.
+...done
+
+── Adding DESCRIPTION and LICENSE ──
+
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/DESCRIPTIONDESCRIPTION]8;;'.
+Package: MHDPA.R.HSE2018
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * First Last <email@dhsc.gov.uk> [aut, cre]
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/LICENSELICENSE]8;;'.
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/LICENSE.mdLICENSE.md]8;;'.
+✔ Adding "^LICENSE\\.md$" to ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/.Rbuildignore.Rbuildignore]8;;'.
+...done
+
+── Setting up pkgdown for html documentation ──
+
+✔ Adding "^_pkgdown\\.yml$", "^docs$", and "^pkgdown$" to ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/.Rbuildignore.Rbuildignore]8;;'.
+✔ Adding "docs" to ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/.gitignore.gitignore]8;;'.
+ℹ Leaving ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/_pkgdown.yml_pkgdown.yml]8;;' unchanged.
+☐ Edit ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/_pkgdown.yml_pkgdown.yml]8;;'.
+...done
+
+── Configuring git ──
+
+✔ Initialising Git repo
+• Check Git config correct
+ℹ Name: rmcrossley
+ℹ Email: becky.crossley@dhsc.gov.uk
+✔ Writing ']8;;file://C:/Users/Becky.Crossley/OneDrive - Department of Health and Social Care/Documents/MHDPA/MHDPA_R_HSE2018/.git/hooks/pre-commit.git/hooks/pre-commit]8;;'.
+...done
