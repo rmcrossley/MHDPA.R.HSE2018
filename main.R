@@ -35,6 +35,8 @@ logger$info("[Begin]")
 source("./R/run_analysis.R", local = TRUE)
 #run_grouped_analysis()
 
-run_plots()
+#run_plots()
+
+run_age_filter()
 
 logger$info("[End]")

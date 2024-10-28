@@ -133,3 +133,25 @@ run_plots <- function(){
     labs(title = "Box plot of BMI by GHQ Score", x = "GHQ Score", y = "BMI")
 
 }
+
+run_age_filter <- function(){
+  df <- upload$hse18lab
+
+  df_filtered <-  df %>%
+    filter(BMIOK == 1, !is.na(GHQ12Scr), !is.na(Sex)) %>%
+    mutate(Sex = as.factor(Sex))
+
+  df_men <- df_filtered %>% filter(Sex == "Male")
+  df_women <- df_filtered %>% filter(Sex == "Female")
+
+  p1 <- ggplot(df_women, aes(y = BMI, x = as.factor(GHQ12Scr))) +
+    geom_boxplot(fill = "deeppink") +
+    labs(title = "Box plot of BMI vs GHQ (Women)", y = "BMI", x = "GHQ")
+  print(p1)
+
+  p2 <- ggplot(df_men, aes(y = BMI, x = as.factor(GHQ12Scr))) +
+    geom_boxplot(fill = "blue") +
+    labs(title = "Box plot of BMI vs GHQ (Men)", y = "BMI", x = "GHQ")
+  print(p2)
+
+}
