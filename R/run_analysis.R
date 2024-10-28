@@ -132,6 +132,12 @@ run_plots <- function(){
     geom_boxplot() +
     labs(title = "Box plot of BMI by GHQ Score", x = "GHQ Score", y = "BMI")
 
+  ggplot(df, aes(y = GHQ12Scr, x = BMIvg5)) +
+    geom_boxplot() +
+    labs(title = "Box plot of BMI by GHQ Score", x = "BMI", y = "GHQ Score") +
+    scale_y_continuous(breaks = seq(0, 12, by = 1))
+
+
 }
 
 run_age_filter <- function(){
@@ -154,4 +160,15 @@ run_age_filter <- function(){
     labs(title = "Box plot of BMI vs GHQ (Men)", y = "BMI", x = "GHQ")
   print(p2)
 
+  q1 <- ggplot(df_men, aes(y = GHQ12Scr, x = BMIvg5)) +
+    geom_boxplot(fill = "blue") +
+    labs(title = "Box plot of BMI by GHQ Score (Men)", x = "BMI", y = "GHQ Score") +
+    scale_y_continuous(breaks = seq(0, 12, by = 1))
+  print(q1)
+
+  q2 <- ggplot(df_women, aes(y = GHQ12Scr, x = BMIvg5)) +
+    geom_boxplot(fill = "deeppink") +
+    labs(title = "Box plot of BMI by GHQ Score (Women)", x = "BMI", y = "GHQ Score") +
+    scale_y_continuous(breaks = seq(0, 12, by = 1))
+  print(q2)
 }
