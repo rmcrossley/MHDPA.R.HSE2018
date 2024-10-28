@@ -140,7 +140,7 @@ run_plots <- function(){
 
 }
 
-run_age_filter <- function(){
+run_sex_filter <- function(){
   df <- upload$hse18lab
 
   df_filtered <-  df %>%
@@ -169,6 +169,29 @@ run_age_filter <- function(){
   q2 <- ggplot(df_women, aes(y = GHQ12Scr, x = BMIvg5)) +
     geom_boxplot(fill = "deeppink") +
     labs(title = "Box plot of BMI by GHQ Score (Women)", x = "BMI", y = "GHQ Score") +
+    scale_y_continuous(breaks = seq(0, 12, by = 1))
+  print(q2)
+}
+
+run_depravity_filter <- function(){
+  df <- upload$hse18lab
+
+  df_filtered <-  df %>%
+    filter(BMIOK == 1, !is.na(GHQ12Scr), !is.na(qimd)) %>%
+    mutate(qimd = as.factor(qimd))
+
+  df_least <- df_filtered %>% filter(qimd == "0.48->8.37 (Least Deprived)")
+  df_most <- df_filtered %>% filter(qimd == "33.88->92.60 (Most Deprived)")
+
+  q1 <- ggplot(df_least, aes(y = GHQ12Scr, x = BMIvg5)) +
+    geom_boxplot(fill = "darkolivegreen4") +
+    labs(title = "Box plot of BMI vs GHQ (Least Deprived)", y = "BMI", x = "GHQ Score") +
+    scale_y_continuous(breaks = seq(0, 12, by = 1))
+  print(q1)
+
+  q2 <- ggplot(df_most, aes(y = GHQ12Scr, x = BMIvg5)) +
+    geom_boxplot(fill = "darkorange3") +
+    labs(title = "Box plot of BMI vs GHQ (Most Deprived)", y = "BMI", x = "GHQ Score") +
     scale_y_continuous(breaks = seq(0, 12, by = 1))
   print(q2)
 }

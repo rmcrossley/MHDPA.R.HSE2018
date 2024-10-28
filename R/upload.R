@@ -14,12 +14,15 @@ write(column_names, file = "column_names_hse_2018.txt")
 # Reduce to data we want --------------------------------------------
 # Select the specific columns
 hse18red <- hse_2018_in %>%
-  select(BMI, BMIOK, GHQ, GHQ12Scr, Anxiet17g3, MVPATert, Sex, ag16g10, BMIvg5, SCSatis, origin2, LifeSatG, IllAff7, ILL12m, MENHTAKg2, AntiDepTakg2, AntiDepM2, topqual3, RELIGSC, HHINC3, eqv5)
+  select(qimd, BMI, BMIOK, GHQ, GHQ12Scr, Anxiet17g3, MVPATert, Sex, ag16g10, BMIvg5, SCSatis, origin2, LifeSatG, IllAff7, ILL12m, MENHTAKg2, AntiDepTakg2, AntiDepM2, topqual3, RELIGSC, HHINC3, eqv5)
 
 #Relabel df for relabelling factors
 hse18lab <- hse18red
 
 # Clean data to label correctly
+# Modify factor levels for Depravity
+hse18lab$qimd <- factor(hse18lab$qimd, levels = c("1", "2", "3", "4", "5"),
+                          labels = c("0.48->8.37 (Least Deprived)", "8.37->13.92", "13.92->21.43", "21.43->33.88", "33.88->92.60 (Most Deprived)"))
 # Modify factor levels for BMI
 hse18lab$BMIvg5 <- factor(hse18lab$BMIvg5, levels = c("1", "2", "3", "4", "5"),
                                 labels = c("Underweight", "Normal", "Overweight", "Obese", "Morbidly Obese"))

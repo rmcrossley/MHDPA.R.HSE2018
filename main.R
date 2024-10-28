@@ -36,7 +36,7 @@ source("./R/run_analysis.R", local = TRUE)
 #run_grouped_analysis()
 
 #run_plots()
-
-run_age_filter()
+#run_sex_filter()
+run_depravity_filter()
 
 logger$info("[End]")
