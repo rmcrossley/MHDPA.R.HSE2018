@@ -31,7 +31,7 @@ run_grouped_analysis <- function() {
   factors <- c("ag16g10", "Sex", "origin2",
                "LifeSatG", "IllAff7", "ILL12m", "MENHTAKg2",
                "AntiDepTakg2", "AntiDepM2", "topqual3", "RELIGSC", "HHINC3",
-               "eqv5", "GHQ", "Anxiet17g3", "MVPATert")
+               "eqv5", "GHQ", "Anxiet17g3", "MVPATert", "qimd")
 
   # Initialize a data frame to store results
   results <- data.frame(Factor = character(), Chi_Square_p_value = numeric(),
@@ -71,7 +71,7 @@ run_grouped_analysis <- function() {
 
   # Compare to GHQ score bands
   # List of factors to iterate through
-  factors <- c("ag16g10", "Sex", "origin2", "topqual3", "RELIGSC", "HHINC3", "eqv5", "MVPATert", "Anxiet17g3")
+  factors <- c("ag16g10", "Sex", "origin2", "topqual3", "RELIGSC", "HHINC3", "eqv5", "MVPATert", "Anxiet17g3", "qimd")
 
   # Initialize a data frame to store results
   results <- data.frame(Factor = character(), Chi_Square_p_value = numeric(),
@@ -192,6 +192,43 @@ run_depravity_filter <- function(){
   q2 <- ggplot(df_most, aes(y = GHQ12Scr, x = BMIvg5)) +
     geom_boxplot(fill = "darkorange3") +
     labs(title = "Box plot of BMI vs GHQ (Most Deprived)", y = "BMI", x = "GHQ Score") +
+    scale_y_continuous(breaks = seq(0, 12, by = 1))
+  print(q2)
+}
+
+#filtered on age check (i.e. 40-74)
+run_HCage_filter <- function(){
+  df <- upload$hse18lab
+
+  df_filtered <-  df %>%
+    filter(BMIOK == 1, !is.na(GHQ12Scr), !is.na(age16g5), age16g5 > 6, age16g5 < 14)
+
+  q1 <- ggplot(df_filtered, aes(y = GHQ12Scr, x = BMIvg5)) +
+    geom_boxplot(fill = "brown2") +
+    labs(title = "Box plot of BMI vs GHQ (Ages 40-74)", y = "BMI", x = "GHQ Score") +
+    scale_y_continuous(breaks = seq(0, 12, by = 1))
+  print(q1)
+}
+
+run_age_filter <- function(){
+  df <- upload$hse18lab
+
+  df_filtered <-  df %>%
+    filter(BMIOK == 1, !is.na(GHQ12Scr), !is.na(ag16g10)) %>%
+    mutate(ag16g10 = as.factor(ag16g10))
+
+  df_1624 <- df_filtered %>% filter(ag16g10 == "16-24")
+  df_6574 <- df_filtered %>% filter(ag16g10 == "65-74")
+
+  q1 <- ggplot(df_1624, aes(y = GHQ12Scr, x = BMIvg5)) +
+    geom_boxplot(fill = "chocolate1") +
+    labs(title = "Box plot of BMI vs GHQ (16-24)", y = "BMI", x = "GHQ Score") +
+    scale_y_continuous(breaks = seq(0, 12, by = 1))
+  print(q1)
+
+  q2 <- ggplot(df_6574, aes(y = GHQ12Scr, x = BMIvg5)) +
+    geom_boxplot(fill = "chocolate3") +
+    labs(title = "Box plot of BMI vs GHQ (65-74)", y = "BMI", x = "GHQ Score") +
     scale_y_continuous(breaks = seq(0, 12, by = 1))
   print(q2)
 }
