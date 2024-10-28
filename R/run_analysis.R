@@ -232,3 +232,26 @@ run_age_filter <- function(){
     scale_y_continuous(breaks = seq(0, 12, by = 1))
   print(q2)
 }
+
+#filtered on age check (i.e. 40-74)
+run_employment_filter <- function(){
+  df <- upload$hse18lab
+
+  df_filtered <-  df %>%
+    filter(BMIOK == 1, !is.na(GHQ12Scr), !is.na(nssec8))
+
+  df_un <- df_filtered %>% filter(nssec8 == 8)
+  df_emp <- df_filtered %>% filter(nssec8 != 8 & nssec8 != 99)
+
+  q1 <- ggplot(df_un, aes(y = GHQ12Scr, x = BMIvg5)) +
+    geom_boxplot(fill = "chocolate4") +
+    labs(title = "Box plot of BMI vs GHQ (Never worked or long term unemployed )", y = "BMI", x = "GHQ Score") +
+    scale_y_continuous(breaks = seq(0, 12, by = 1))
+  print(q1)
+
+  q2 <- ggplot(df_emp, aes(y = GHQ12Scr, x = BMIvg5)) +
+    geom_boxplot(fill = "cornflowerblue") +
+    labs(title = "Box plot of BMI vs GHQ (Employed)", y = "BMI", x = "GHQ Score") +
+    scale_y_continuous(breaks = seq(0, 12, by = 1))
+  print(q2)
+}

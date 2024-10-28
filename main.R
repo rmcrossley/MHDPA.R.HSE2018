@@ -39,6 +39,7 @@ source("./R/run_analysis.R", local = TRUE)
 #run_sex_filter()
 # run_depravity_filter()
 # run_HCage_filter()
-run_age_filter()
+# run_age_filter()
+run_employment_filter()
 
 logger$info("[End]")
