@@ -185,13 +185,13 @@ run_depravity_filter <- function(){
 
   q1 <- ggplot(df_least, aes(y = GHQ12Scr, x = BMIvg5)) +
     geom_boxplot(fill = "darkolivegreen4") +
-    labs(title = "Box plot of BMI vs GHQ (Least Deprived)", y = "BMI", x = "GHQ Score") +
+    labs(title = "Box plot of BMI vs GHQ (Least Deprived)", y = "GHQ Score", x = "BMI Status") +
     scale_y_continuous(breaks = seq(0, 12, by = 1))
   print(q1)
 
   q2 <- ggplot(df_most, aes(y = GHQ12Scr, x = BMIvg5)) +
     geom_boxplot(fill = "darkorange3") +
-    labs(title = "Box plot of BMI vs GHQ (Most Deprived)", y = "BMI", x = "GHQ Score") +
+    labs(title = "Box plot of BMI vs GHQ (Most Deprived)", y = "GHQ Score", x = "BMI Status") +
     scale_y_continuous(breaks = seq(0, 12, by = 1))
   print(q2)
 }
@@ -205,9 +205,14 @@ run_HCage_filter <- function(){
 
   q1 <- ggplot(df_filtered, aes(y = GHQ12Scr, x = BMIvg5)) +
     geom_boxplot(fill = "brown2") +
-    labs(title = "Box plot of BMI vs GHQ (Ages 40-74)", y = "BMI", x = "GHQ Score") +
+    labs(title = "Box plot of BMI vs GHQ (Ages 40-74)", y = "GHQ Score", x = "BMI Status") +
     scale_y_continuous(breaks = seq(0, 12, by = 1))
   print(q1)
+
+  tbl <- table(df_filtered$BMIvg5, df_filtered$GHQ12Scr)
+  # Visualize with a mosaic plot
+  mosaicplot(tbl, main = paste("Mosaic Plot of GHQ Score and BMI Status for those aged 40-74"),
+             ylab = "GHQ Score", xlab = "BMI", color = TRUE)
 }
 
 run_age_filter <- function(){
@@ -222,18 +227,17 @@ run_age_filter <- function(){
 
   q1 <- ggplot(df_1624, aes(y = GHQ12Scr, x = BMIvg5)) +
     geom_boxplot(fill = "chocolate1") +
-    labs(title = "Box plot of BMI vs GHQ (16-24)", y = "BMI", x = "GHQ Score") +
+    labs(title = "Box plot of BMI vs GHQ (16-24)", y = "GHQ Score", x = "BMI Status") +
     scale_y_continuous(breaks = seq(0, 12, by = 1))
   print(q1)
 
   q2 <- ggplot(df_6574, aes(y = GHQ12Scr, x = BMIvg5)) +
     geom_boxplot(fill = "chocolate3") +
-    labs(title = "Box plot of BMI vs GHQ (65-74)", y = "BMI", x = "GHQ Score") +
+    labs(title = "Box plot of BMI vs GHQ (65-74)", y = "GHQ Score", x = "BMI Status") +
     scale_y_continuous(breaks = seq(0, 12, by = 1))
   print(q2)
 }
 
-#filtered on age check (i.e. 40-74)
 run_employment_filter <- function(){
   df <- upload$hse18lab
 
@@ -245,13 +249,49 @@ run_employment_filter <- function(){
 
   q1 <- ggplot(df_un, aes(y = GHQ12Scr, x = BMIvg5)) +
     geom_boxplot(fill = "chocolate4") +
-    labs(title = "Box plot of BMI vs GHQ (Never worked or long term unemployed )", y = "BMI", x = "GHQ Score") +
+    labs(title = "Box plot of BMI vs GHQ (Never worked or long term unemployed )", y = "GHQ Score", x = "BMI Status") +
     scale_y_continuous(breaks = seq(0, 12, by = 1))
   print(q1)
 
   q2 <- ggplot(df_emp, aes(y = GHQ12Scr, x = BMIvg5)) +
     geom_boxplot(fill = "cornflowerblue") +
-    labs(title = "Box plot of BMI vs GHQ (Employed)", y = "BMI", x = "GHQ Score") +
+    labs(title = "Box plot of BMI vs GHQ (Employed)", y = "GHQ Score", x = "BMI Status") +
     scale_y_continuous(breaks = seq(0, 12, by = 1))
   print(q2)
+}
+
+run_limlast_filter <- function(){
+  df <- upload$hse18lab
+
+  df_filtered <-  df %>%
+    filter(BMIOK == 1, !is.na(GHQ12Scr), !is.na(limlast))
+
+  df_n <- df_filtered %>% filter(limlast == 3)
+  df_y <- df_filtered %>% filter(limlast != 3)
+  df_y_lim <- df_filtered %>% filter(limlast == 1)
+  df_y_non <- df_filtered %>% filter(limlast == 2)
+
+  q1 <- ggplot(df_n, aes(y = GHQ12Scr, x = BMIvg5)) +
+    geom_boxplot(fill = "antiquewhite4") +
+    labs(title = "Box plot of BMI vs GHQ (No longlasting illness)", y = "GHQ Score", x = "BMI Status") +
+    scale_y_continuous(breaks = seq(0, 12, by = 1))
+  print(q1)
+
+  q2 <- ggplot(df_y, aes(y = GHQ12Scr, x = BMIvg5)) +
+    geom_boxplot(fill = "aquamarine3") +
+    labs(title = "Box plot of BMI vs GHQ (Longlasting illness)", y = "GHQ Score", x = "BMI Status") +
+    scale_y_continuous(breaks = seq(0, 12, by = 1))
+  print(q2)
+
+  q3 <- ggplot(df_y_lim, aes(y = GHQ12Scr, x = BMIvg5)) +
+    geom_boxplot(fill = "aquamarine1") +
+    labs(title = "Box plot of BMI vs GHQ (Limiting longlasting illness)", y = "GHQ Score", x = "BMI Status") +
+    scale_y_continuous(breaks = seq(0, 12, by = 1))
+  print(q3)
+
+  q4 <- ggplot(df_y_non, aes(y = GHQ12Scr, x = BMIvg5)) +
+    geom_boxplot(fill = "aquamarine2") +
+    labs(title = "Box plot of BMI vs GHQ (Non limiting longlasting illness)", y = "GHQ Score", x = "BMI Status") +
+    scale_y_continuous(breaks = seq(0, 12, by = 1))
+  print(q4)
 }

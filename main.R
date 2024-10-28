@@ -33,13 +33,13 @@ logger$info("[Begin]")
 
 # add source of run script and entry point to code below
 source("./R/run_analysis.R", local = TRUE)
-#run_grouped_analysis()
-
-#run_plots()
-#run_sex_filter()
+# run_grouped_analysis()
+# run_plots()
+# run_sex_filter()
 # run_depravity_filter()
 # run_HCage_filter()
 # run_age_filter()
-run_employment_filter()
+# run_employment_filter()
+# run_limlast_filter()
 
 logger$info("[End]")
