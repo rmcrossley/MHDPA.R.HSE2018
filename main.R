@@ -33,6 +33,8 @@ logger$info("[Begin]")
 
 # add source of run script and entry point to code below
 source("./R/run_analysis.R", local = TRUE)
-run_analysis()
+#run_grouped_analysis()
+
+run_plots()
 
 logger$info("[End]")

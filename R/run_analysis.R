@@ -2,6 +2,7 @@
 # Load required packages --------------------------------------------------
 library(tidyverse)
 library(vcd)
+library(ggplot2)
 
 # Source other scripts ----------------------------------------------------
 upload <- new.env(); source("./R/upload.R", local = upload)
@@ -16,10 +17,10 @@ upload <- new.env(); source("./R/upload.R", local = upload)
 #'
 #' @export
 #'
-run_analysis <- function() {
+run_grouped_analysis <- function() {
   print("Found the run_analysis function!")
   #log action
-  logger$info("Running analysis...")
+  logger$info("Running grouped analysis...")
 
   # Load in data
   df <- upload$hse18lab
@@ -107,5 +108,28 @@ run_analysis <- function() {
 
   # Optionally, save results to a CSV or document
   write.csv(results, "GHQ_chi_square_results.csv", row.names = FALSE)
+
+}
+
+run_plots <- function(){
+  #log action
+  logger$info("Running plots...")
+
+  # Load in data
+  df <- upload$hse18lab
+
+  df_filtered <-  df %>%
+    filter(BMIOK == 1, !is.na(GHQ12Scr))
+
+  df_clean <- df[complete.cases(df$BMI, df$GHQ12Scr), ]
+
+  #Plotting
+  ggplot(df_clean, aes(y = BMI, x = GHQ12Scr)) +
+    geom_point() +
+    labs(title = "Scatter plot of BMI vs GHQ", y = "BMI", x = "GHQ score")
+
+  ggplot(df, aes(x = as.factor(GHQ12Scr), y = BMI)) +
+    geom_boxplot() +
+    labs(title = "Box plot of BMI by GHQ Score", x = "GHQ Score", y = "BMI")
 
 }

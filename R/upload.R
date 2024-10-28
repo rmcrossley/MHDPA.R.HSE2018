@@ -14,7 +14,7 @@ write(column_names, file = "column_names_hse_2018.txt")
 # Reduce to data we want --------------------------------------------
 # Select the specific columns
 hse18red <- hse_2018_in %>%
-  select(GHQ, Anxiet17g3, MVPATert, Sex, ag16g10, BMIvg5, SCSatis, origin2, LifeSatG, IllAff7, ILL12m, MENHTAKg2, AntiDepTakg2, AntiDepM2, topqual3, RELIGSC, HHINC3, eqv5)
+  select(BMI, BMIOK, GHQ, GHQ12Scr, Anxiet17g3, MVPATert, Sex, ag16g10, BMIvg5, SCSatis, origin2, LifeSatG, IllAff7, ILL12m, MENHTAKg2, AntiDepTakg2, AntiDepM2, topqual3, RELIGSC, HHINC3, eqv5)
 
 #Relabel df for relabelling factors
 hse18lab <- hse18red
