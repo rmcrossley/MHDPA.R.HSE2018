@@ -41,5 +41,6 @@ source("./R/run_analysis.R", local = TRUE)
 # run_age_filter()
 # run_employment_filter()
 # run_limlast_filter()
+run_moderators()
 
 logger$info("[End]")

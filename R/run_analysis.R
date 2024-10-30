@@ -295,3 +295,56 @@ run_limlast_filter <- function(){
     scale_y_continuous(breaks = seq(0, 12, by = 1))
   print(q4)
 }
+
+run_moderators <- function(){
+  message("Starting the function 'run_moderators'...")
+
+  #Load in data
+  df <- upload$hse18lab
+  message("df loaded")
+
+  #Filter data by valid BMI only
+  df_filtered <-  df %>%
+    filter(BMIOK == 1)
+  message("Dataframe successfully filtered by valid BMI only")
+
+  # Define your variable names and file path
+  moderators <- c("nssec8", "ag16g10", "limlast", "Sex", "origin2",
+                  "LifeSatG", "IllAff7", "ILL12m", "MENHTAKg2",
+                  "AntiDepTakg2", "AntiDepM2", "topqual3", "RELIGSC", "HHINC3",
+                  "eqv5", "GHQ", "Anxiet17g3", "MVPATert")
+  message("Defined moderators of interest")
+
+  # File to save outputs to
+  output_file <- "moderation_results.txt"
+  message("Created output file")
+
+  # Open the file for writing
+  sink(output_file)
+  message("Opened output file")
+
+  # Loop through each moderator, fit model, and save output
+  for (moderator in moderators) {
+
+    # Dynamically build the formula
+    formula <- as.formula(paste("GHQ12Scr ~ BMI *", moderator))
+    message("Formula built with moderator:", moderator)
+
+    # Fit the model
+    model <- lm(formula, data = df_filtered)
+    message("Model fitting complete")
+
+    # Print a header for clarity in output file
+    cat("\n\n--- Results for Moderator:", moderator, "---\n\n")
+
+    # Capture the summary output
+    model_summary <- capture.output(summary(model))
+
+    # Save the summary to a file
+    cat(model_summary)
+    message("Completed for moderator:", moderator)
+  }
+
+  sink()
+  file.show(output_file)
+}
