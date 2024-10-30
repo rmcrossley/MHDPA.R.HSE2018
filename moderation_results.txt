@@ -3,27 +3,140 @@
 --- Results for Moderator: nssec8 ---
 
  Call: lm(formula = formula, data = df_filtered)  Residuals:     Min      1Q  Median      3Q     Max  -2.8559 -1.4877 -1.2543  0.3982 10.9347   Coefficients:               Estimate Std. Error t value Pr(>|t|)     (Intercept)  0.1219810  0.1873278   0.651   0.5150     BMI          0.0471674  0.0066287   7.116 1.24e-12 *** nssec8       0.0286617  0.0099264   2.887   0.0039 **  BMI:nssec8  -0.0007333  0.0003976  -1.844   0.0652 .   --- Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1  Residual standard error: 2.719 on 6130 degrees of freedom   (1969 observations deleted due to missingnessINFO [2024-10-30 09:25:26] [End]
-justed R-squared:  0.01053  F-statistic: 22.75 on 3 and 6130 DF,  p-value: 1.222e-14 
+INFO [2024-10-30 09:52:46] [Begin]
+INFO [2024-10-30 09:52:50] [End]
+INFO [2024-10-30 09:53:23] [Begin]
+INFO [2024-10-30 09:53:39] [End]
+INFO [2024-10-30 09:55:19] [Begin]
+INFO [2024-10-30 09:55:34] [End]
+INFO [2024-10-30 09:59:38] [Begin]
+function(){
 
---- Results for Moderator: ag16g10 ---
+  #Load in data
+  df <- upload$hse18lab
 
- Call: lm(formula = formula, data = df_filtered)  Residuals:     Min      1Q  Median      3Q     Max  -3.2227 -1.5642 -1.0631  0.2442 11.2446   Coefficients:                  Estimate Std. Error t value Pr(>|t|)     (Intercept)       2.37364    0.52442   4.526 6.12e-06 *** BMI              -0.02300    0.02086  -1.103 0.270253     ag16g1025-34     -2.15451    0.68008  -3.168 0.001542 **  ag16g1035-44     -1.98426    0.67447  -2.942 0.003274 **  ag16g1045-54     -1.93345    0.66424  -2.911 0.003618 **  ag16g1055-64     -3.01836    0.67812  -4.451 8.69e-06 *** ag16g1065-74     -2.32681    0.70027  -3.323 0.000896 *** ag16g1075+       -2.43537    0.85736  -2.841 0.004518 **  BMI:ag16g1025-34  0.07299    0.02610   2.796 0.005188 **  BMI:ag16g1035-44  0.06698    0.02572   2.604 0.009231 **  BMI:ag16g1045-54  0.07126    0.02510   2.839 0.004537 **  BMI:ag16g1055-64  0.10062    0.02553   3.941 8.22e-05 *** BMI:ag16g1065-74  0.05689    0.02625   2.167 0.030269 *   BMI:ag16g1075+    0.06655    0.03184   2.090 0.036638 *   --- Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1  Residual standard error: 2.725 on 6214 degrees of freedom   (1875 observations deleted due to missingness) Multiple R-squared:  0.02128,	Adjusted R-squared:  0.01923  F-statistic: 10.39 on 13 and 6214 DF,  p-value: < 2.2e-16 
+  #Filter data by valid BMI only
+  df_filtered <-  df %>%
+    filter(BMIOK == 1)
 
---- Results for Moderator: limlast ---
+  mediators <- c("nssec8", "ag16g10", "limlast", "Sex", "origin2",
+                  "LifeSatG", "IllAff7", "ILL12m", "MENHTAKg2",
+                  "AntiDepTakg2", "AntiDepM2", "topqual3", "RELIGSC", "HHINC3",
+                  "eqv5", "GHQ", "Anxiet17g3", "MVPATert")
 
- Call: lm(formula = formula, data = df_filtered)  Residuals:     Min      1Q  Median      3Q     Max  -3.9364 -1.4933 -0.8105  0.2134 11.3334   Coefficients:             Estimate Std. Error t value Pr(>|t|)     (Intercept)  1.43372    0.43837   3.271  0.00108 **  BMI          0.08446    0.01489   5.670 1.49e-08 *** limlast     -0.06276    0.18195  -0.345  0.73018     BMI:limlast -0.03350    0.00635  -5.276 1.36e-07 *** --- Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1  Residual standard error: 2.594 on 6496 degrees of freedom   (1603 observations deleted due to missingness) Multiple R-squared:  0.1011,	Adjusted R-squared:  0.1006  F-statistic: 243.4 on 3 and 6496 DF,  p-value: < 2.2e-16 
+  for (mediator in mediators){
+    b <- mediator
+    # Step 1: Model the effect of BMI on mediator (e.g., `b`)
+    mediator_model <- lm(b ~ BMI, data = df_filtered)
 
---- Results for Moderator: Sex ---
+    # Step 2: Model the effect of BMI and mediator on GHQ
+    outcome_model <- lm(GHQ ~ BMI + b, data = df_filtered)
 
- Call: lm(formula = formula, data = df_filtered)  Residuals:     Min      1Q  Median      3Q     Max  -3.1841 -1.4679 -1.2329  0.3323 10.9050   Coefficients:              Estimate Std. Error t value Pr(>|t|)    (Intercept)  0.716248   0.272949   2.624  0.00871 ** BMI          0.020216   0.009764   2.071  0.03844 *  SexMale     -0.344830   0.340753  -1.012  0.31159    BMI:SexMale  0.027807   0.012144   2.290  0.02206 *  --- Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1  Residual standard error: 2.718 on 6496 degrees of freedom   (1603 observations deleted due to missingness) Multiple R-squared:  0.01327,	Adjusted R-squared:  0.01281  F-statistic: 29.12 on 3 and 6496 DF,  p-value: < 2.2e-16 
+    # Step 3: Test for mediation
+    mediate_effect <- mediate(mediator_model, outcome_model, treat = "BMI", mediator = "b", boot = TRUE)
+    summary(mediate_effect)
+  }
+}
+INFO [2024-10-30 09:59:42] [End]
+INFO [2024-10-30 10:04:31] [Begin]
+function(){
 
---- Results for Moderator: origin2 ---
+  #Load in data
+  df <- upload$hse18lab
 
- Call: lm(formula = formula, data = df_filtered)  Residuals:     Min      1Q  Median      3Q     Max  -2.7024 -1.5084 -1.2589  0.3502 10.9120   Coefficients:              Estimate Std. Error t value Pr(>|t|)     (Intercept) -0.061480   0.326335  -0.188   0.8506     BMI          0.048408   0.011785   4.108 4.04e-05 *** origin2      0.373588   0.224211   1.666   0.0957 .   BMI:origin2 -0.006987   0.008263  -0.846   0.3978     --- Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1  Residual standard error: 2.723 on 6493 degrees of freedom   (1606 observations deleted due to missingness) Multiple R-squared:  0.009319,	Adjusted R-squared:  0.008862  F-statistic: 20.36 on 3 and 6493 DF,  p-value: 3.968e-13 
+  #Filter data by valid BMI only
+  df_filtered <-  df %>%
+    filter(BMIOK == 1)
 
---- Results for Moderator: LifeSatG ---
+  mediators <- c("nssec8", "ag16g10", "limlast", "Sex", "origin2",
+                  "LifeSatG", "IllAff7", "ILL12m", "MENHTAKg2",
+                  "AntiDepTakg2", "AntiDepM2", "topqual3", "RELIGSC", "HHINC3",
+                  "eqv5", "GHQ", "Anxiet17g3", "MVPATert")
 
- Call: lm(formula = formula, data = df_filtered)  Residuals:     Min      1Q  Median      3Q     Max  -6.5972 -1.0547 -0.3340  0.5987 11.6758   Coefficients:                              Estimate Std. Error t value Pr(>|t|)     (Intercept)                   5.51655    0.40945  13.473  < 2e-16 *** BMI                           0.02514    0.01370   1.836   0.0665 .   LifeSatGMedium (5-6)         -2.20615    0.54515  -4.047 5.25e-05 *** LifeSatGHigh (7-8)           -4.73869    0.46137 -10.271  < 2e-16 *** LifeSatGVery high (9-10)     -5.32741    0.48194 -11.054  < 2e-16 *** BMI:LifeSatGMedium (5-6)     -0.02267    0.01832  -1.237   0.2160     BMI:LifeSatGHigh (7-8)       -0.01461    0.01564  -0.934   0.3504     BMI:LifeSatGVery high (9-10) -0.01998    0.01646  -1.214   0.2248     --- Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1  Residual standard error: 2.185 on 6148 degrees of freedom   (1947 observations deleted due to missingness) Multiple R-squared:   0.37,	Adjusted R-squared:  0.3692  F-statistic: 515.7 on 7 and 6148 DF,  p-value: < 2.2e-16 
+  # File to save outputs to
+  output_file <- "mediation_results.txt"
+  message("Created output file")
+
+  # Open the file for writing
+  sink(output_file)
+  message("Opened output file")
+
+  for (mediator in mediators){
+    b <- mediator
+    # Step 1: Model the effect of BMI on mediator (e.g., `b`)
+    mediator_model <- lm(b ~ BMI, data = df_filtered)
+
+    # Step 2: Model the effect of BMI and mediator on GHQ
+    outcome_model <- lm(GHQ ~ BMI + b, data = df_filtered)
+
+    cat("\n\n--- Results for Mediator:", mediator, "---\n\n")
+
+    # Step 3: Test for mediation
+    mediate_effect <- mediate(mediator_model, outcome_model, treat = "BMI", mediator = "b", boot = TRUE)
+
+    # Capture the summary output
+    model_summary <- capture.output(summary(mediate_effect))
+
+    # Save the summary to a file
+    cat(model_summary)
+    message("Completed for mediator:", mediator)
+  }
+
+  sink()
+
+}
+INFO [2024-10-30 10:04:35] [End]
+INFO [2024-10-30 10:05:36] [Begin]
+function(){
+
+  #Load in data
+  df <- upload$hse18lab
+
+  #Filter data by valid BMI only
+  df_filtered <-  df %>%
+    filter(BMIOK == 1)
+
+  mediators <- c("nssec8", "ag16g10", "limlast", "Sex", "origin2",
+                  "LifeSatG", "IllAff7", "ILL12m", "MENHTAKg2",
+                  "AntiDepTakg2", "AntiDepM2", "topqual3", "RELIGSC", "HHINC3",
+                  "eqv5", "GHQ", "Anxiet17g3", "MVPATert")
+
+  # File to save outputs to
+  file.create("mediation_results.txt")
+  output_file <- "mediation_results.txt"
+  message("Created output file")
+
+  # Open the file for writing
+  sink(output_file)
+  message("Opened output file")
+
+  for (mediator in mediators){
+    b <- mediator
+    # Step 1: Model the effect of BMI on mediator (e.g., `b`)
+    mediator_model <- lm(b ~ BMI, data = df_filtered)
+
+    # Step 2: Model the effect of BMI and mediator on GHQ
+    outcome_model <- lm(GHQ ~ BMI + b, data = df_filtered)
+
+    cat("\n\n--- Results for Mediator:", mediator, "---\n\n")
+
+    # Step 3: Test for mediation
+    mediate_effect <- mediate(mediator_model, outcome_model, treat = "BMI", mediator = "b", boot = TRUE)
+
+    # Capture the summary output
+    model_summary <- capture.output(summary(mediate_effect))
+
+    # Save the summary to a file
+    cat(model_summary)
+    message("Completed for mediator:", mediator)
+  }
+
+  sink()
+
+}
+INFO [2024-10-30 10:05:40] [End]
+INFO [2024-10-30 10:05:57] [Begin]
+t value Pr(>|t|)     (Intercept)                   5.51655    0.40945  13.473  < 2e-16 *** BMI                           0.02514    0.01370   1.836   0.0665 .   LifeSatGMedium (5-6)         -2.20615    0.54515  -4.047 5.25e-05 *** LifeSatGHigh (7-8)           -4.73869    0.46137 -10.271  < 2e-16 *** LifeSatGVery high (9-10)     -5.32741    0.48194 -11.054  < 2e-16 *** BMI:LifeSatGMedium (5-6)     -0.02267    0.01832  -1.237   0.2160     BMI:LifeSatGHigh (7-8)       -0.01461    0.01564  -0.934   0.3504     BMI:LifeSatGVery high (9-10) -0.01998    0.01646  -1.214   0.2248     --- Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1  Residual standard error: 2.185 on 6148 degrees of freedom   (1947 observations deleted due to missingness) Multiple R-squared:   0.37,	Adjusted R-squared:  0.3692  F-statistic: 515.7 on 7 and 6148 DF,  p-value: < 2.2e-16 
 
 --- Results for Moderator: IllAff7 ---
 

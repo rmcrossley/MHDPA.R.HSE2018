@@ -348,3 +348,90 @@ run_moderators <- function(){
   sink()
   file.show(output_file)
 }
+
+visualise_moderators <- function(){
+  #Load in data
+  df <- upload$hse18lab
+
+  #Filter data by valid BMI only
+  df_filtered <-  df %>%
+    filter(BMIOK == 1)
+
+  moderators <- c("nssec8", "ag16g10", "limlast", "Sex", "origin2",
+                  "LifeSatG", "IllAff7", "ILL12m", "MENHTAKg2",
+                  "AntiDepTakg2", "AntiDepM2", "topqual3", "RELIGSC", "HHINC3",
+                  "eqv5", "GHQ", "Anxiet17g3", "MVPATert")
+
+  for (moderator in moderators){
+  c <- moderator
+  p <- ggplot(df_filtered, aes(x = BMI, y = GHQ12Scr, color = factor(c))) +
+    geom_point() +
+    geom_smooth(method = "lm", aes(group = c), se = FALSE) +
+    scale_y_continuous(breaks = seq(0, 12, by = 1))
+  print(p)
+  }
+}
+
+#stuck working this one out - as far as printed works
+run_mediators <- function(){
+
+  #Load in data
+  df <- upload$hse18lab
+
+  #Filter data by valid BMI only
+  df_filtered <-  df %>%
+    filter(BMIOK == 1)
+
+  mediators <- c("nssec8", "ag16g10", "limlast", "Sex", "origin2",
+                  "LifeSatG", "IllAff7", "ILL12m", "MENHTAKg2",
+                  "AntiDepTakg2", "AntiDepM2", "topqual3", "RELIGSC", "HHINC3",
+                  "eqv5", "GHQ", "Anxiet17g3", "MVPATert")
+
+  # File to save outputs to
+  file.create("mediation_results.txt")
+  output_file <- "mediation_results.txt"
+  message("Created output file")
+
+  while (sink.number() > 0) {
+    sink()
+  }
+
+  # Open the file for writing
+  sink(output_file)
+  message("Opened output file")
+
+  for (mediator in mediators){
+
+    df_clean <- df_filtered %>%
+      filter(!is.na(BMI) & !is.na(mediator))
+
+    message(summary(df_clean$BMI))
+    message(summary(df_clean$GHQ12Scr))
+    # formula <- as.formula(paste("df_clean$", mediator))
+    message(summary(df[[mediator]]))
+    message("here")
+
+    # Step 1: Model the effect of BMI on mediator
+    mediator_model <- lm(mediator ~ BMI, data = df_clean)
+
+    # Step 2: Model the effect of BMI and mediator on GHQ
+    outcome_model <- lm(GHQ12Scr ~ BMI + mediator, data = df_clean)
+
+    cat("\n\n--- Results for Mediator:", mediator, "---\n\n")
+
+    # Step 3: Test for mediation
+    mediate_effect <- mediate(mediator_model, outcome_model, treat = "BMI", mediator = "mediator", boot = TRUE)
+
+    # Capture the summary output
+    model_summary <- capture.output(summary(mediate_effect))
+
+    # Save the summary to a file
+    cat(model_summary)
+    message("Completed for mediator:", mediator)
+  }
+
+  sink()
+
+  file.show("mediation_results.txt")
+
+}
