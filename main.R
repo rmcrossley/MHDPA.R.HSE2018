@@ -32,7 +32,8 @@ logger$set_threshold("log.console", "INFO")
 logger$info("[Begin]")
 
 # add source of run script and entry point to code below
-source("./R/run_analysis.R", local = TRUE)
+# source("./R/run_analysis.R", local = TRUE)
+
 # run_grouped_analysis()
 # run_plots()
 # run_sex_filter()
@@ -45,6 +46,12 @@ source("./R/run_analysis.R", local = TRUE)
 # visualise_moderators()
 
 # Working on ---------
-run_mediators()
+#run_mediators()
+
+# Regression -----------------------------------------
+# add source of run script and entry point to code below this line
+source("./R/run_regression.R", local = TRUE)
+run_mnreg_GHQ()
+
 
 logger$info("[End]")
