@@ -1,6 +1,11 @@
 # Load required packages --------------------------------------------------
 library(tidymodels)
 library(readr)
+library(foreign)
+library(ggplot2)
+library(MASS)
+library(Hmisc)
+library(reshape2)
 
 # Source other scripts ----------------------------------------------------
 upload <- new.env(); source("./R/upload.R", local = upload)
@@ -23,11 +28,13 @@ run_mnreg_GHQ <- function(){
     coord_flip()
   print(p)
 
-  # Clean all out
+  # Clean out those variables with only 1 answer
   df1 <- df[, !names(df) %in% "BMIOK"]
   df2 <- df1[, !names(df1) %in% "ILL12m"]
   df3 <- df2[, !names(df2) %in% "IllAff7"]
-  df_extraclean <- na.omit(df3)
+  df4 <- df3[, !names(df3) %in% "GHQ"]
+  df5 <- df4[, !names(df4) %in% "Anxiet17g3"]
+  df_extraclean <- na.omit(df5)
   #print(summary(df_extraclean))
 
   # Split data into training and test datasets
@@ -58,7 +65,7 @@ run_mnreg_GHQ <- function(){
                         type = "prob")
 
   results <- test %>%
-    select(GHQ12Scr) %>%
+    dplyr::select(GHQ12Scr) %>%
     bind_cols(pred_class, pred_proba)
 
   accuracy(results, truth = GHQ12Scr, estimate = .pred_class)
@@ -99,7 +106,7 @@ run_mnreg_GHQ <- function(){
                         new_data = test,
                         type = "class")
   results <- test %>%
-    select(GHQ12Scr) %>%
+    dplyr::select(GHQ12Scr) %>%
     bind_cols(pred_class, pred_proba)
 
   # Create confusion matrix
@@ -118,8 +125,35 @@ run_mnreg_GHQ <- function(){
   coeff <- tidy(mn_reg_final) %>%
     arrange(desc(abs(estimate))) %>%
     filter(abs(estimate) > 0.5)
+  print(coeff)
 
   # Plot importance
   ggplot(coeff, aes(x = term, y = estimate, fill = term)) + geom_col() + coord_flip()
 
+}
+
+run_ordreg_GHQ <- function(){
+  # Load in data
+  df <- upload$hse18lab
+  print("here")
+
+  # Set GHQ12Scr as the variable of interest
+  df$GHQ12Scr = as.factor(df$GHQ12Scr)
+
+  # Clean data to remove NAs
+  df_clean <- df %>% filter(!is.na(GHQ12Scr))
+
+  # Clean out those variables with only 1 answer or too closely related
+  df1 <- df[, !names(df) %in% "BMIOK"]
+  df2 <- df1[, !names(df1) %in% "ILL12m"]
+  df3 <- df2[, !names(df2) %in% "IllAff7"]
+  df4 <- df3[, !names(df3) %in% "GHQ"]
+  df5 <- df4[, !names(df4) %in% "Anxiet17g3"]
+  df_extraclean <- na.omit(df5)
+
+  # fit an ordered logit model, saving results to m
+  m <- polr(GHQ12Scr ~., data = df_extraclean, Hess=TRUE)
+
+  ## view a summary of the model
+  summary(m)
 }

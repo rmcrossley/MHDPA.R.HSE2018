@@ -2,6 +2,7 @@
 # Load required packages --------------------------------------------------
 library(tidyverse)
 library(haven)
+library(dplyr)
 
 hse_2018_in <- read_sav("C:/Users/Becky.Crossley/Department of Health and Social Care/GOV-Healthy Weight, Food & Nutrition Analysis - Documents/Data/HSfE/Raw/2018/UKDA-8649-spss/spss/spss25/hse_2018_eul_22052020.sav")
 
@@ -14,7 +15,7 @@ write(column_names, file = "column_names_hse_2018.txt")
 # Reduce to data we want --------------------------------------------
 # Select the specific columns
 hse18red <- hse_2018_in %>%
-  select(nssec8, qimd, BMI, limlast, BMIOK, GHQ, age16g5, GHQ12Scr, Anxiet17g3, MVPATert, Sex, ag16g10, BMIvg5, SCSatis, origin2, LifeSatG, IllAff7, ILL12m, MENHTAKg2, AntiDepTakg2, AntiDepM2, topqual3, RELIGSC, HHINC3, eqv5)
+  dplyr::select(nssec8, qimd, BMI, limlast, BMIOK, GHQ, age16g5, GHQ12Scr, Anxiet17g3, MVPATert, Sex, ag16g10, BMIvg5, SCSatis, origin2, LifeSatG, IllAff7, ILL12m, MENHTAKg2, AntiDepTakg2, AntiDepM2, topqual3, RELIGSC, HHINC3, eqv5)
 
 #Relabel df for relabelling factors
 hse18lab <- hse18red

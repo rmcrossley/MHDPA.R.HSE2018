@@ -52,6 +52,6 @@ logger$info("[Begin]")
 # add source of run script and entry point to code below this line
 source("./R/run_regression.R", local = TRUE)
 run_mnreg_GHQ()
-
+#run_ordreg_GHQ()
 
 logger$info("[End]")
