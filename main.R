@@ -50,7 +50,7 @@ logger$info("[Begin]")
 
 # Tests -----------------
 source("./R/run_tests.R", local = TRUE)
-# run_vif()
+run_vif()
 run_vif2()
 
 # Regression -----------------------------------------

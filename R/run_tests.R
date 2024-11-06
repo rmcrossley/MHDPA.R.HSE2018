@@ -1,3 +1,6 @@
+library(corrplot)
+library(car)
+
 # Source other scripts ----------------------------------------------------
 upload <- new.env(); source("./R/upload.R", local = upload)
 
@@ -30,6 +33,13 @@ run_vif <- function(){
   print(cormatrix)
   q <- image(cormatrix, main = "Correlation Matrix", col = colorRampPalette(c("blue", "white", "red"))(20))
   print(q)
+  # visualizing correlogram
+  # as circle
+  q2 <- corrplot(cormatrix, method="circle")
+  print(q2)
+  # Correlogram as numbers
+  q3 <- corrplot(cormatrix, method="number")
+  print(q3)
 }
 
 run_vif2 <- function(){
@@ -69,6 +79,13 @@ run_vif2 <- function(){
   print(cormatrix)
   q <- image(cormatrix, main = "Correlation Matrix", col = colorRampPalette(c("blue", "white", "red"))(20))
   print(q)
+  # visualizing correlogram
+  # as circle
+  q2 <- corrplot(cormatrix, method="circle")
+  print(q2)
+  # Correlogram as numbers
+  q3 <- corrplot(cormatrix, method="number")
+  print(q3)
 }
 
 #nssec8, qimd, BMI, limlast, BMIOK, GHQ, age16g5, GHQ12Scr, Anxiet17g3, MVPATert, Sex, ag16g10, BMIvg5, SCSatis, origin2, LifeSatG, IllAff7, ILL12m, MENHTAKg2, AntiDepTakg2, AntiDepM2, topqual3, RELIGSC, HHINC3, eqv5
