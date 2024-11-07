@@ -88,4 +88,22 @@ run_vif2 <- function(){
   print(q3)
 }
 
+run_hist <- function(){
+  df <- upload$hse18red
+
+  # Clean data to remove NAs
+  df_clean <- df %>% filter(!is.na(GHQ12Scr))
+  df_clean1 <- df_clean[, !names(df_clean) %in% "ILL12m"]
+
+  # Run a test plot of BMI status against GHQ12Scr
+  df_cleanBMI <- df_clean1 %>% filter(!is.na(BMIvg5), BMIOK == 1)
+
+  #df_done <- df_cleanBMI[, !names(df_cleanBMI) %in% "BMIOK"]
+
+  p <- ggplot(df_cleanBMI, aes(GHQ12Scr, fill = BMIvg5)) +
+    geom_bar() +
+    coord_flip()
+  print(p)
+}
+
 #nssec8, qimd, BMI, limlast, BMIOK, GHQ, age16g5, GHQ12Scr, Anxiet17g3, MVPATert, Sex, ag16g10, BMIvg5, SCSatis, origin2, LifeSatG, IllAff7, ILL12m, MENHTAKg2, AntiDepTakg2, AntiDepM2, topqual3, RELIGSC, HHINC3, eqv5
