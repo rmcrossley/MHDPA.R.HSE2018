@@ -6,6 +6,7 @@ library(ggplot2)
 library(MASS)
 library(Hmisc)
 library(reshape2)
+library(ggeffects)
 
 # Source other scripts ----------------------------------------------------
 upload <- new.env(); source("./R/upload.R", local = upload)
@@ -134,26 +135,48 @@ run_mnreg_GHQ <- function(){
 
 run_ordreg_GHQ <- function(){
   # Load in data
-  df <- upload$hse18lab
-  print("here")
-
-  # Set GHQ12Scr as the variable of interest
-  df$GHQ12Scr = as.factor(df$GHQ12Scr)
+  df <- upload$hse18red
 
   # Clean data to remove NAs
   df_clean <- df %>% filter(!is.na(GHQ12Scr))
+  df_clean1 <- df_clean[, !names(df_clean) %in% "ILL12m"]
+  df_clean2 <- df_clean1[, !names(df_clean1) %in% "ag16g10"]
+  df_clean3 <- df_clean2[, !names(df_clean2) %in% "MENHTAKg2"]
+  df_clean4 <- df_clean3[, !names(df_clean3) %in% "SCSatis"]
+  df_clean5 <- df_clean4[, !names(df_clean4) %in% "LifeSatG"]
+  df_clean6 <- df_clean5[, !names(df_clean5) %in% "AntiDepTakg2"]
+  df_clean7 <- df_clean6[, !names(df_clean6) %in% "Anxiet17g3"]
+  df_clean8 <- df_clean7[, !names(df_clean7) %in% "GHQ"]
+  df_clean9 <- df_clean8[, !names(df_clean8) %in% "BMIvg5"]
 
-  # Clean out those variables with only 1 answer or too closely related
-  df1 <- df[, !names(df) %in% "BMIOK"]
-  df2 <- df1[, !names(df1) %in% "ILL12m"]
-  df3 <- df2[, !names(df2) %in% "IllAff7"]
-  df4 <- df3[, !names(df3) %in% "GHQ"]
-  df5 <- df4[, !names(df4) %in% "Anxiet17g3"]
-  df_extraclean <- na.omit(df5)
+  # Run a test plot of BMI status against GHQ12Scr
+  df_cleanBMI <- df_clean9 %>% filter(BMIOK == 1)
+
+  df_done <- df_cleanBMI[, !names(df_cleanBMI) %in% "BMIOK"]
+
+  # Set GHQ12Scr as the variable of interest
+  df_done$GHQ12Scr = as.factor(df_done$GHQ12Scr)
 
   # fit an ordered logit model, saving results to m
-  m <- polr(GHQ12Scr ~., data = df_extraclean, Hess=TRUE)
+  m <- polr(GHQ12Scr ~., data = df_done, Hess=TRUE)
 
   ## view a summary of the model
   summary(m)
+
+  ## store table
+  (ctable <- coef(summary(m)))
+
+  ## calculate and store p values
+  p <- pnorm(abs(ctable[, "t value"]), lower.tail = FALSE) * 2
+
+  ## combined table
+  (ctable <- cbind(ctable, "p value" = p))
+  print(ctable)
+
+  ## odds ratios
+  ors <- exp(coef(m))
+  print(ors)
+
+  m1 <- ordinal::clm(GHQ12Scr ~., data = df_done)
+  predict_response(m1, c("eqv5", "topqual3", "RELIGSC", "HHINC3", "IllAff7", "origin2", "age16g5", "MVPATert", "limlast", "BMI", "Sex", "qimd", "nssec8")) |> plot()
 }

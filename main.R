@@ -49,14 +49,14 @@ logger$info("[Begin]")
 #run_mediators()
 
 # Tests -----------------
-source("./R/run_tests.R", local = TRUE)
-run_vif()
-run_vif2()
+# source("./R/run_tests.R", local = TRUE)
+# run_vif()
+# run_vif2()
 
 # Regression -----------------------------------------
 # add source of run script and entry point to code below this line
-# source("./R/run_regression.R", local = TRUE)
+source("./R/run_regression.R", local = TRUE)
 # run_mnreg_GHQ()
-#run_ordreg_GHQ()
+run_ordreg_GHQ()
 
 logger$info("[End]")
