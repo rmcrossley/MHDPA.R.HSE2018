@@ -177,6 +177,17 @@ run_ordreg_GHQ <- function(){
   ors <- exp(coef(m))
   print(ors)
 
-  m1 <- ordinal::clm(GHQ12Scr ~., data = df_done)
-  predict_response(m1, c("eqv5", "topqual3", "RELIGSC", "HHINC3", "IllAff7", "origin2", "age16g5", "MVPATert", "limlast", "BMI", "Sex", "qimd", "nssec8")) |> plot()
-}
+  #m1 <- ordinal::clm(GHQ12Scr ~., data = df_done)
+  #predict_response(m1, c("eqv5", "topqual3", "RELIGSC", "HHINC3", "IllAff7", "origin2", "age16g5", "MVPATert", "limlast", "BMI", "Sex", "qimd", "nssec8")) |> plot()
+
+  # higher the value of coefficients the higher their importance is
+  coeff <- tidy(m) %>%
+    arrange(desc(abs(estimate))) %>%
+    filter(abs(estimate) > 0.5)
+  print(coeff)
+
+  # Plot importance
+  pi <- ggplot(coeff, aes(x = term, y = estimate, fill = term)) + geom_col() + coord_flip()
+  print(pi)
+
+  }

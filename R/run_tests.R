@@ -74,7 +74,7 @@ run_vif2 <- function(){
     abline(v = 5, lwd = 3, lty = 2)
   print(p)
 
-  corrdata <- df_done[ , c("eqv5", "topqual3", "RELIGSC", "HHINC3", "IllAff7", "origin2", "age16g5", "MVPATert", "limlast", "BMI", "Sex", "qimd", "nssec8")]
+  corrdata <- df_done[ , c("eqv5", "AntiDepM2", "topqual3", "RELIGSC", "HHINC3", "IllAff7", "origin2", "age16g5", "MVPATert", "limlast", "BMI", "Sex", "qimd", "nssec8")]
   cormatrix <- cor(corrdata, use="pairwise.complete.obs")
   print(cormatrix)
   q <- image(cormatrix, main = "Correlation Matrix", col = colorRampPalette(c("blue", "white", "red"))(20))
@@ -104,6 +104,11 @@ run_hist <- function(){
     geom_bar() +
     coord_flip()
   print(p)
+
+  q <- ggplot(df_cleanBMI, aes(GHQ12Scr, fill = BMIvg5)) +
+    geom_bar() +
+    coord_flip()
+  print(q)
 }
 
 #nssec8, qimd, BMI, limlast, BMIOK, GHQ, age16g5, GHQ12Scr, Anxiet17g3, MVPATert, Sex, ag16g10, BMIvg5, SCSatis, origin2, LifeSatG, IllAff7, ILL12m, MENHTAKg2, AntiDepTakg2, AntiDepM2, topqual3, RELIGSC, HHINC3, eqv5
