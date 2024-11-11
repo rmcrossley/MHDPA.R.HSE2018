@@ -105,7 +105,7 @@ run_hist <- function(){
     coord_flip()
   print(p)
 
-  q <- ggplot(df_cleanBMI, aes(GHQ12Scr, fill = BMIvg5)) +
+  q <- ggplot(df_cleanBMI, aes(BMIvg5, fill = GHQ12Scr)) +
     geom_bar() +
     coord_flip()
   print(q)
