@@ -49,10 +49,10 @@ logger$info("[Begin]")
 #run_mediators()
 
 # Tests -----------------
-source("./R/run_tests.R", local = TRUE)
+# source("./R/run_tests.R", local = TRUE)
 # run_vif()
 # run_vif2()
-run_hist()
+# run_hist()
 
 
 # Regression -----------------------------------------
@@ -61,7 +61,7 @@ run_hist()
 # run_mnreg_GHQ()
 # run_ordreg_GHQ()
 
-# source("./R/run_OLS.R", local = TRUE)
-# run_OLS()
+source("./R/run_OLS.R", local = TRUE)
+run_OLS()
 
 logger$info("[End]")

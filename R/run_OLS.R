@@ -51,6 +51,8 @@ run_OLS <- function(){
   # Plot the Q-Q line
   qqline(model_residuals)
 
+  plot(ols)
+
   # Compute correlation at 2 decimal places
   corr_matrix = round(cor(df_clean9), 2)
 
